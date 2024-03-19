@@ -1,1 +1,1 @@
-bot: python recruiterbot.py
+worker: python recruiterbot.py
