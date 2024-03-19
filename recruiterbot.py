@@ -9,11 +9,7 @@ questions = [
     "Ник в телеграме",
     "Претендуемая позиция",
     "Резюме",
-
-
-notion_token = "secret_RPZhkqHjgIMcnhwvZ6qVTbxnVdCo8FaVWaM263RiqNw"
-notion_page_id = "b12ecd3b08b344f3808481d95388ee46"
-notion_database_id = "0d4eff9ba2eb4d5f8fa2d83f433f94cc"
+]
 
 
 position_options = ["Проектный менеджер", "Офис-менеджер", "Ассистент"]
