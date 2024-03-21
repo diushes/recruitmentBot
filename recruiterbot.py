@@ -34,18 +34,12 @@ continue_keyboard.add(continue_button)
 
 @bot.message_handler(commands=["start"])
 def start_recruitment(message):
-    user_id = message.from_user.id
-    if user_id in user_answers or user_id in users_awaiting_review:
-        # Clear user's data
-        user_answers.pop(user_id, None)  # Remove user's answers
-        users_awaiting_review.pop(user_id, None)  # Remove user from awaiting review
-        bot.send_message(user_id, "Your data has been cleared. You can start over.")
-    else:
-        bot.send_message(
-            message.chat.id,
-            "Вас приветствует Макбучная!\nВы можете ознакомиться с доступными вакансиями, а также узнать подробнее о компании по ссылке ниже:\nhttps://www.notion.so/macbookbro/b93138587ea84dad87e9b145ab614110?pvs=4",
-            reply_markup=continue_keyboard,
-        )
+    user_answers.clear()
+    bot.send_message(
+        message.chat.id,
+        "Вас приветствует Макбучная!\nВы можете ознакомиться с доступными вакансиями, а также узнать подробнее о компании по ссылке ниже:\nhttps://www.notion.so/macbookbro/b93138587ea84dad87e9b145ab614110?pvs=4",
+        reply_markup=continue_keyboard,
+    )
 
 
 @bot.callback_query_handler(func=lambda call: call.data == "continue")
