@@ -55,6 +55,8 @@ def start_recruitment(message):
 
 @bot.callback_query_handler(func=lambda call: call.data == "continue")
 def proceed(call):
+    user_id = call.message.chat.id
+    clear_user_data(user_id)
     bot.send_message(
         call.message.chat.id,
         "Теперь, если вы готовы приступить к подаче заявки, просим ответить на несколько наших вопросов!",
