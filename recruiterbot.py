@@ -34,6 +34,8 @@ continue_keyboard.add(continue_button)
 
 @bot.message_handler(commands=["start"])
 def start_recruitment(message):
+    user_answers.clear()
+    users_awaiting_review.clear()
     bot.send_message(
         message.chat.id,
         "Вас приветствует Макбучная!\nВы можете ознакомиться с доступными вакансиями, а также узнать подробнее о компании по ссылке ниже:\nhttps://www.notion.so/macbookbro/b93138587ea84dad87e9b145ab614110?pvs=4",
