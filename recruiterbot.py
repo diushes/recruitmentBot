@@ -27,17 +27,27 @@ review_keyboard.add(
 )
 
 
+continue_keyboard = types.InlineKeyboardMarkup()
+continue_button = types.InlineKeyboardButton("Продолжить", callback_data="continue")
+continue_keyboard.add(continue_button)
+
+
 @bot.message_handler(commands=["start"])
 def start_recruitment(message):
     bot.send_message(
         message.chat.id,
         "Вас приветствует Макбучная!\nВы можете ознакомиться с доступными вакансиями, а также узнать подробнее о компании по ссылке ниже:\nhttps://www.notion.so/macbookbro/b93138587ea84dad87e9b145ab614110?pvs=4",
+        reply_markup=continue_keyboard,
     )
+
+
+@bot.callback_query_handler(func=lambda call: call.data == "continue")
+def proceed(call):
     bot.send_message(
-        message.chat.id,
+        call.message.chat.id,
         "Теперь, если вы готовы приступить к подаче заявки, просим ответить на несколько наших вопросов!",
     )
-    ask_question(message, 0)
+    ask_question(call.message, 0)
 
 
 def ask_question(message, question_number):
