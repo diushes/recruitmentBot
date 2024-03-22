@@ -68,8 +68,6 @@ def ask_question(message, question_number):
 
 def save_answer(message, question_number):
     user_id = message.from_user.id
-    if message.text.startswith("/"):
-        return
     if user_id not in user_answers:
         user_answers[user_id] = {}
 
