@@ -32,20 +32,8 @@ continue_button = types.InlineKeyboardButton("Продолжить", callback_da
 continue_keyboard.add(continue_button)
 
 
-def clear_user_data(user_id):
-    if user_id in user_answers:
-        user_answers.pop(user_id)  # Remove user's answers
-    if user_id in users_awaiting_review:
-        users_awaiting_review.pop(user_id)
-
-
 @bot.message_handler(commands=["start"])
 def start_recruitment(message):
-    user_id = message.from_user.id
-    if user_id in user_answers or user_id in users_awaiting_review:
-        clear_user_data(user_id)  # Clear user's data
-        bot.send_message(user_id, "Ваши данные были очищены.")
-
     bot.send_message(
         message.chat.id,
         "Вас приветствует Макбучная!\nВы можете ознакомиться с доступными вакансиями, а также узнать подробнее о компании по ссылке ниже:\nhttps://www.notion.so/macbookbro/b93138587ea84dad87e9b145ab614110?pvs=4",
@@ -55,8 +43,6 @@ def start_recruitment(message):
 
 @bot.callback_query_handler(func=lambda call: call.data == "continue")
 def proceed(call):
-    user_id = call.message.chat.id
-    clear_user_data(user_id)
     bot.send_message(
         call.message.chat.id,
         "Теперь, если вы готовы приступить к подаче заявки, просим ответить на несколько наших вопросов!",
@@ -82,6 +68,8 @@ def ask_question(message, question_number):
 
 def save_answer(message, question_number):
     user_id = message.from_user.id
+    if message.text.startswith("/"):
+        return
     if user_id not in user_answers:
         user_answers[user_id] = {}
 
